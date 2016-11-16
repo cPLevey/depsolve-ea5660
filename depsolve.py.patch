@@ -1,0 +1,28 @@
+--- depsolve.py.dist	2016-11-04 15:33:14.000000000 +0800
++++ depsolve.py.patched	2016-11-16 20:44:28.805880629 +0800
+@@ -1584,12 +1584,19 @@
+                     if res == po:
+                         pkgresults[po] += 5
+
+-            # End of O(N*N): for nextpo in pkgs:
+-
+-            # Respect the repository priority for each provider, the default is 80
+-            pkgresults[po] += (100 - po.repo.compare_providers_priority) * 10
+-            self.verbose_logger.log(logginglevels.DEBUG_4,
+-                _('compare_providers_priority for %s is %s' % (po, po.repo.compare_providers_priority)))
++##
++## Workaround for EA-5660
++## Added by cP Support
++##
++##            # End of O(N*N): for nextpo in pkgs:
++##
++##            # Respect the repository priority for each provider, the default is 80
++##            pkgresults[po] += (100 - po.repo.compare_providers_priority) * 10
++##            self.verbose_logger.log(logginglevels.DEBUG_4,
++##                _('compare_providers_priority for %s is %s' % (po, po.repo.compare_providers_priority)))
++##
++## End workaround
++##
+
+             if _common_sourcerpm(po, reqpo):
+                 self.verbose_logger.log(logginglevels.DEBUG_4,
